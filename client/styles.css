@@ -2,7 +2,7 @@
 
 :root {
     --icon-size: 24px;
-    --primary-color: #4285f4;
+    --primary-color: #bf9f4f;
     --peer-width: 120px;
     color-scheme: light dark;
 }
@@ -20,6 +20,7 @@ body {
     flex-direction: column;
     width: 100%;
     overflow-x: hidden;
+    user-select: none;
 }
 
 body {
@@ -27,6 +28,10 @@ body {
     align-items: center;
     justify-content: center;
     overflow-y: hidden;
+}
+
+canvas {
+    pointer-events: none;
 }
 
 .row-reverse {
@@ -111,14 +116,13 @@ h3 {
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
-    word-break: break-all;
 }
 
 .font-body1,
 body {
     font-size: 14px;
     font-weight: 400;
-    line-height: 20px;
+    line-height: 16px;
 }
 
 .font-body2 {
@@ -308,7 +312,7 @@ footer {
 
 footer .logo {
     --icon-size: 80px;
-    margin-bottom: 8px;
+    margin-bottom: 15px;
     color: var(--primary-color);
 }
 
@@ -364,6 +368,10 @@ x-dialog .row-reverse>.button {
 
 x-dialog a {
     color: var(--primary-color);
+}
+
+#fileName {
+    margin-bottom: 16px;
 }
 
 /* Receive Dialog */
@@ -503,10 +511,50 @@ button::-moz-focus-inner {
 
 #about {
     color: white;
-    z-index: 11;
+    text-align: center;
+    padding: 0 32px;
     overflow: hidden;
     pointer-events: none;
+    z-index: 11;
+}
+
+#about h1 {
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-shadow: 1px 2px 1px rgba(0, 0, 0, 0.08);
+}
+
+#about p {
+    margin: 16px 0 0 0;
+    text-shadow: 1px 2px 1px rgba(0, 0, 0, 0.08);
+}
+
+#about .credits {
+    position: absolute;
+    bottom: 16px;
+    left: 0;
+    right: 0;
+    padding: 0 24px;
+    font-size: 13px;
     text-align: center;
+    opacity: 0.4;
+}
+
+@media (min-height: 800px) {
+    #about .credits {
+        bottom: 32px;
+    }
+}
+
+@media (max-width: 600px) {
+    #about br {
+        display: none;
+    }
+
+    #about .credits {
+        display: none;
+    }
 }
 
 #about .fade-in {
@@ -535,6 +583,7 @@ button::-moz-focus-inner {
     height: 400px;
     border-radius: 50%;
     background: var(--primary-color);
+    background: radial-gradient(circle at center, #b49345 0, #bf9f4f, #bd9b49 50%);
     transform: scale(0);
     z-index: -1;
 }
@@ -719,6 +768,7 @@ x-dialog x-paper {
 }
 /* Image Preview */
 #img-preview{
+    max-width: 100%;
     max-height: 50vh;
     margin: auto;
     display: block;
