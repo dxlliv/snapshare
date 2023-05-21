@@ -9,8 +9,14 @@ window.iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 Events.on('display-name', e => {
     const me = e.detail.message;
     const $displayName = $('displayName')
-    $displayName.textContent = 'You are known as ' + me.displayName;
+    $displayName.textContent = 'Sei conosciuto come ' + me.displayName;
     $displayName.title = me.deviceName;
+
+    const $displayStatus = $('displayStatus')
+    $displayStatus.textContent = me.isTerminal ? 'Attendi che qualcuno invii delle foto da stampare' : 'Collegati alla nostra rete per condividere le foto';
+
+    const $displayInstructions = $('displayInstructions')
+    $displayInstructions.style.display = me.isTerminal ? 'none' : 'block';
 });
 
 class PeersUI {
@@ -103,6 +109,7 @@ class PeerUI {
         el.querySelector('svg use').setAttribute('xlink:href', this._icon());
         el.querySelector('.name').textContent = this._displayName();
         el.querySelector('.device-name').textContent = this._deviceName();
+        el.querySelector('.status').textContent = this._isTerminal() ? 'Attendi che qualcuno invii dei documenti da stampare' : 'Collegati alla nostra rete per condividere le foto';
         this.$el = el;
         this.$progress = el.querySelector('.progress');
     }
@@ -375,7 +382,7 @@ class ReceiveTextDialog extends Dialog {
 
     async _onCopy() {
         await navigator.clipboard.writeText(this.$text.textContent);
-        Events.fire('notify-user', 'Copied to clipboard');
+        Events.fire('notify-user', 'Copiato in memoria');
     }
 }
 
@@ -402,9 +409,13 @@ class Notifications {
         // Check whether notification permissions have already been granted
         if (Notification.permission !== 'granted') {
             this.$button = $('notification');
-            this.$button.removeAttribute('hidden');
-            this.$button.addEventListener('click', e => this._requestPermission());
+
+            if (this.$button) {
+                this.$button.removeAttribute('hidden');
+                this.$button.addEventListener('click', e => this._requestPermission());
+            }
         }
+
         Events.on('text-received', e => this._messageNotification(e.detail.text));
         Events.on('file-received', e => this._downloadNotification(e.detail.name));
     }
@@ -474,7 +485,7 @@ class Notifications {
     _copyText(message, notification) {
         notification.close();
         if (!navigator.clipboard.writeText(message)) return;
-        this._notify('Copied text to clipboard');
+        this._notify('Copiato in memoria');
     }
 
     _bind(notification, handler) {
@@ -498,11 +509,11 @@ class NetworkStatusUI {
     }
 
     _showOfflineMessage() {
-        Events.fire('notify-user', 'You are offline');
+        Events.fire('notify-user', 'Sei offline');
     }
 
     _showOnlineMessage() {
-        Events.fire('notify-user', 'You are back online');
+        Events.fire('notify-user', 'Connessione ripristinata');
     }
 }
 

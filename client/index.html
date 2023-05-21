@@ -26,13 +26,13 @@
 
 <body translate="no">
     <header class="row-reverse">
-        <a href="#about" class="icon-button" title="About Snapdrop">
+        <a href="#about" class="icon-button" title="Informazioni">
             <svg class="icon">
                 <use xlink:href="#info-outline" />
             </svg>
         </a>
-        <a href="#" id="theme" class="icon-button" title="Switch Darkmode/Lightmode" >
-            <svg class="icon">
+        <a href="#" id="theme" class="icon-button" title="Cambia tema" >
+            <svg class="icon" style="width: 24px; height: 24px;">
                 <use xlink:href="#icon-theme" />
             </svg>
         </a>
@@ -50,34 +50,38 @@
     <!-- Peers -->
     <x-peers class="center"></x-peers>
     <x-no-peers>
-        <h2>Open Snapdrop on other devices to send files</h2>
+        <h2>Condividi le foto che desideri stampare</h2>
     </x-no-peers>
-    <x-instructions desktop="Click to send files or right click to send a message" mobile="Tap to send files or long tap to send a message"></x-instructions>
+    <x-instructions
+      id="displayInstructions"
+      desktop="Seleziona il terminale per iniziare"
+      mobile="Seleziona il terminale per iniziare"
+    ></x-instructions>
     <!-- Footer -->
     <footer class="column">
         <svg class="icon logo">
             <use xlink:href="#wifi-tethering" />
         </svg>
-        <div id="displayName" placeholder="The easiest way to transfer data across devices"></div>
-        <div class="font-body2">You can be discovered by everyone on this network</div>
+        <div id="displayName" placeholder="Trasferisci le tue foto in maniera semplice e veloce"></div>
+        <div id="displayStatus" class="font-body2">Collegati alla nostra rete per condividere le foto</div>
     </footer>
     <!-- Receive Dialog -->
     <x-dialog id="receiveDialog">
         <x-background class="full center">
             <x-paper shadow="2">
-                <h3>File Received</h3>
+                <h3>File ricevuto</h3>
                 <div class="font-subheading" id="fileName">Filename</div>
                 <div class="font-body2" id="fileSize"></div>
                 <div class='preview' style="visibility: hidden;">
                     <img id='img-preview' src="">
                 </div>
                 <div class="row">
-                    <label for="autoDownload" class="grow">Ask to save each file before downloading</label>
+                    <label for="autoDownload" class="grow">Chiedi di salvare ogni file prima del download</label>
                     <input type="checkbox" id="autoDownload" checked="">
                 </div>
                 <div class="row-reverse">
-                    <a class="button" close id="download" title="Download File" autofocus>Save</a>
-                    <button class="button" close>Ignore</button>
+                    <a class="button" close id="download" title="Download File" autofocus>Salva</a>
+                    <button class="button" close>Ignora</button>
                 </div>
             </x-paper>
         </x-background>
@@ -87,11 +91,11 @@
         <form action="#">
             <x-background class="full center">
                 <x-paper shadow="2">
-                    <h3>Send a Message</h3>
-                    <div id="textInput" class="textarea" role="textbox" placeholder="Send a message" autocomplete="off" autofocus contenteditable></div>
+                    <h3>Invia un messaggio</h3>
+                    <div id="textInput" class="textarea" role="textbox" placeholder="Invia un messaggio" autocomplete="off" autofocus contenteditable></div>
                     <div class="row-reverse">
-                        <button class="button" type="submit" close>Send</button>
-                        <a class="button" close>Cancel</a>
+                        <button class="button" type="submit" close>Spedisci</button>
+                        <a class="button" close>Annulla</a>
                     </div>
                 </x-paper>
             </x-background>
@@ -101,18 +105,18 @@
     <x-dialog id="receiveTextDialog">
         <x-background class="full center">
             <x-paper shadow="2">
-                <h3>Message Received</h3>
+                <h3>Nuovo messaggio</h3>
                 <div class="font-subheading" id="text"></div>
                 <div class="row-reverse">
-                    <button class="button" id="copy" close autofocus>Copy</button>
-                    <button class="button" close>Close</button>
+                    <button class="button" id="copy" close autofocus>Copia</button>
+                    <button class="button" close>Chiudi</button>
                 </div>
             </x-paper>
         </x-background>
     </x-dialog>
     <!-- Toast -->
     <div class="toast-container full center">
-        <x-toast class="row" shadow="1" id="toast">File Transfer Completed</x-toast>
+        <x-toast class="row" shadow="1" id="toast">Trasferimento file completato</x-toast>
     </div>
     <!-- About Page -->
     <x-about id="about" class="full center column">
@@ -127,8 +131,22 @@
             <svg class="icon logo">
                 <use xlink:href="#wifi-tethering" />
             </svg>
-            <h1>Snapdrop</h1>
-            <div class="font-subheading">The easiest way to transfer files across devices</div>
+            <h1>SnapShare</h1>
+            <p class="font-subheading">
+                Trasferisci foto e documenti in maniera sicura e veloce,<br />
+                basta collegarsi alla nostra rete wireless locale ed è fatta.
+            </p>
+            <p class="font-subheading">
+                I dati vengono trasmessi al nostro computer direttamente<br />
+                senza usare Bluetooth, WhatsApp, E-mail o altri servizi.
+            </p>
+            <small class="credits">
+                <a href="https://github.com/dxlliv/snapshare" target="_blank">SnapShare</a>
+                è un software basato su
+                <a href="https://github.com/RobinLinus/snapdrop" target="_blank">SnapDrop</a>.<br />
+                Progettato da Robin Linus. Rielaborato da Diego Villa.
+            </small>
+            <!--
             <div class="row">
                 <a class="icon-button" target="_blank" href="https://github.com/RobinLinus/snapdrop" title="Snapdrop on Github" rel="noreferrer">
                     <svg class="icon">
@@ -191,7 +209,7 @@
             <path d="M18 1.01L8 1c-1.1 0-2 .9-2 2v3h2V5h10v14H8v-1H6v3c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM10 15h2V8H5v2h3.59L3 15.59 4.41 17 10 11.41z" />
             <path fill="none" d="M0 0h24v24H0V0z" />
         </symbol>
-        <symbol id="monetarization">
+        <symbol id="monetization">
             <path d="M0 0h24v24H0z" fill="none" />
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z" />
         </symbol>
@@ -212,8 +230,8 @@
     <!-- no script -->
     <noscript>
         <x-noscript class="full center column">
-            <h1>Enable JavaScript</h1>
-            <h3>Snapdrop works only with JavaScript</h3>
+            <h1>Abilita JavaScript</h1>
+            <h3>Questo strumento funziona solo con JavaScript abilitato</h3>
         </x-noscript>
         <style>
         x-noscript {
