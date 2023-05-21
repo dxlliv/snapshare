@@ -4,16 +4,17 @@ window.isRtcSupported = !!(window.RTCPeerConnection || window.mozRTCPeerConnecti
 class ServerConnection {
 
     constructor() {
-        this._connect();
+        this._connect(location.hash.startsWith('#terminal'));
         Events.on('beforeunload', e => this._disconnect());
         Events.on('pagehide', e => this._disconnect());
         document.addEventListener('visibilitychange', e => this._onVisibilityChange());
     }
 
-    _connect() {
+    _connect(isTerminal = false) {
         clearTimeout(this._reconnectTimer);
         if (this._isConnected() || this._isConnecting()) return;
-        const ws = new WebSocket(this._endpoint());
+
+        const ws = new WebSocket(this._endpoint() + `?isTerminal=${Number(isTerminal)}`);
         ws.binaryType = 'arraybuffer';
         ws.onopen = e => console.log('WS: server connected');
         ws.onmessage = e => this._onMessage(e.data);
@@ -72,7 +73,7 @@ class ServerConnection {
         console.log('WS: server disconnected');
         Events.fire('notify-user', 'Connessione persa, riprovo tra poco');
         clearTimeout(this._reconnectTimer);
-        this._reconnectTimer = setTimeout(_ => this._connect(), 5000);
+        this._reconnectTimer = setTimeout(_ => this._connect(location.hash.startsWith('#terminal')), 5000);
     }
 
     _onVisibilityChange() {

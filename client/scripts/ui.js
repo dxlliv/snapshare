@@ -80,7 +80,7 @@ class PeerUI {
 
     html() {
         return `
-            <label class="column center" title="Click to send files or right click to send a text">
+            <label class="column center">
                 <input type="file" multiple>
                 <x-icon shadow="1">
                     <svg class="icon"><use xlink:href="#"/></svg>
@@ -134,6 +134,10 @@ class PeerUI {
 
     _deviceName() {
         return this._peer.name.deviceName;
+    }
+
+    _isTerminal() {
+        return this._peer.name.isTerminal;
     }
 
     _icon() {
@@ -460,10 +464,10 @@ class Notifications {
     _messageNotification(message) {
         if (document.visibilityState !== 'visible') {
             if (isURL(message)) {
-                const notification = this._notify(message, 'Click to open link');
+                const notification = this._notify(message, 'Clicca per aprire il link');
                 this._bind(notification, e => window.open(message, '_blank', null, true));
             } else {
-                const notification = this._notify(message, 'Click to copy text');
+                const notification = this._notify(message, 'Clicca per copiare il testo');
                 this._bind(notification, e => this._copyText(message, notification));
             }
         }
@@ -471,7 +475,7 @@ class Notifications {
 
     _downloadNotification(message) {
         if (document.visibilityState !== 'visible') {
-            const notification = this._notify(message, 'Click to download');
+            const notification = this._notify(message, 'Clicca per scaricare');
             if (!window.isDownloadSupported) return;
             this._bind(notification, e => this._download(notification));
         }

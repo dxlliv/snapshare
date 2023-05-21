@@ -38,7 +38,8 @@ class SnapdropServer {
             type: 'display-name',
             message: {
                 displayName: peer.name.displayName,
-                deviceName: peer.name.deviceName
+                deviceName: peer.name.deviceName,
+                isTerminal: peer.name.isTerminal,
             }
         });
     }
@@ -224,6 +225,9 @@ class Peer {
         if(!deviceName)
             deviceName = 'Unknown Device';
 
+        const options = new URL(`https://localhost${req.url}`).searchParams;
+        const isTerminal = options.get('isTerminal') > 0
+
         const displayName = uniqueNamesGenerator({
             length: 2,
             separator: ' ',
@@ -237,8 +241,9 @@ class Peer {
             os: ua.os.name,
             browser: ua.browser.name,
             type: ua.device.type,
-            deviceName,
-            displayName
+            deviceName: isTerminal ? 'Il nostro negozio' : deviceName,
+            displayName: isTerminal ? 'Terminale' : displayName,
+            isTerminal
         };
     }
 
