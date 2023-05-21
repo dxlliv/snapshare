@@ -1,6 +1,6 @@
 {
-    "name": "Snapdrop",
-    "short_name": "Snapdrop",
+    "name": "SnapShare",
+    "short_name": "SnapShare",
     "icons": [{
         "src": "images/android-chrome-192x192.png",
         "sizes": "192x192",
