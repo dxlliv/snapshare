@@ -567,6 +567,9 @@ if ('serviceWorker' in navigator) {
 }
 
 window.addEventListener('beforeinstallprompt', e => {
+    // pwa install is disabled in snapshare
+    return false
+
     if (window.matchMedia('(display-mode: standalone)').matches) {
         // don't display install banner when installed
         return e.preventDefault();
