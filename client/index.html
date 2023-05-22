@@ -69,7 +69,7 @@
     </footer>
     <!-- Receive Dialog -->
     <x-dialog id="receiveDialog">
-        <x-background class="full center">
+        <div class="x-background full center">
             <x-paper shadow="2">
                 <h3>File ricevuto</h3>
                 <div class="font-subheading" id="fileName">Filename</div>
@@ -86,12 +86,12 @@
                     <button class="button" close>Ignora</button>
                 </div>
             </x-paper>
-        </x-background>
+        </div>
     </x-dialog>
     <!-- Send Text Dialog -->
     <x-dialog id="sendTextDialog">
         <form action="#">
-            <x-background class="full center">
+            <div class="x-background full center">
                 <x-paper shadow="2">
                     <h3>Invia un messaggio</h3>
                     <div id="textInput" class="textarea" role="textbox" placeholder="Invia un messaggio" autocomplete="off" autofocus contenteditable></div>
@@ -100,12 +100,12 @@
                         <a class="button" close>Annulla</a>
                     </div>
                 </x-paper>
-            </x-background>
+            </div>
         </form>
     </x-dialog>
     <!-- Receive Text Dialog -->
     <x-dialog id="receiveTextDialog">
-        <x-background class="full center">
+        <div class="x-background full center">
             <x-paper shadow="2">
                 <h3>Nuovo messaggio</h3>
                 <div class="font-subheading" id="text"></div>
@@ -114,7 +114,7 @@
                     <button class="button" close>Chiudi</button>
                 </div>
             </x-paper>
-        </x-background>
+        </div>
     </x-dialog>
     <!-- Toast -->
     <div class="toast-container full center">
@@ -145,7 +145,7 @@
             <small class="credits">
                 <a href="https://github.com/dxlliv/snapshare" target="_blank">SnapShare</a>
                 è un software basato su
-                <a href="https://github.com/RobinLinus/snapdrop" target="_blank">SnapDrop</a>.<br />
+                <a href="https://github.com/RobinLinus/snapdrop" target="_blank">Snapdrop</a>.<br />
                 Progettato da Robin Linus. Rielaborato da Diego Villa.
             </small>
             <!--
@@ -173,7 +173,7 @@
             </div>
             -->
         </section>
-        <x-background></x-background>
+        <div class="x-background"></div>
     </x-about>
     <!-- SVG Icon Library -->
     <svg style="display: none;">
