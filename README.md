@@ -1,34 +1,25 @@
-# Snapdrop 
+# SnapShare 
 
-[Snapdrop](https://snapdrop.net): local file sharing in your browser. Inspired by Apple's Airdrop.
+[SnapShare](https://github.com/dxlliv/snapshare) is an open-source local file sharing project based on [Snapdrop](https://github.com/RobinLinus/snapdrop),   
+it works in your browser and this fork enhances it for certain local stores.
 
 
-#### Snapdrop is built with the following awesome technologies:
-* Vanilla HTML5 / ES6 / CSS3 frontend
+#### Snapdrop is built with the following technologies:
+* Vanilla HTML5 / ES6 / CSS3
 * [WebRTC](http://webrtc.org/) / [WebSockets](http://www.websocket.org/)
 * [NodeJS](https://nodejs.org/en/) backend
 * [Progressive Web App](https://wikipedia.org/wiki/Progressive_Web_App)
 
-
-Have any questions? Read our [FAQ](/docs/faq.md).
-
 You can [host your own instance with Docker](/docs/local-dev.md).
 
 
-## Support the Snapdrop Community
-Snapdrop is free. Still, we have to pay for the server. If you want to contribute, please use PayPal:
+### Useful links
+- [Snapdrop FAQs](https://github.com/RobinLinus/snapdrop/blob/master/docs/faq.md)
+- [Local development](/docs/local-dev.md)
 
-[<img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif">](https://www.paypal.com/donate/?hosted_button_id=MG8GV7YCYT352)
+### Support the Snapdrop Community
+Snapdrop is so cool, if you like it and want to contribute  
+please visit the [Snapdrop GitHub page](https://github.com/RobinLinus/snapdrop) and donate.
 
-or Bitcoin:
-
-[<img src="https://coins.github.io/thx/logo-color-large-pill-320px.png" alt="CoinThx" width="200"/>](https://coins.github.io/thx/#1K9zQ8f4iTyhKyHWmiDKt21cYX2QSDckWB?label=Snapdrop&message=Thanks!%20Your%20contribution%20helps%20to%20keep%20Snapdrop%20free%20for%20everybody!) 
-
-[Bitcoin Lighting](https://tippin.me/@robin_linus)
-
-Alternatively, you can become a [Github Sponsor](https://github.com/sponsors/RobinLinus).
-
-Thanks a lot for supporting free and open software!
-
-
- 
+### Will this fork be maintained and updated?
+Yes, I'll try to keep this fork updated with the latest updates.
