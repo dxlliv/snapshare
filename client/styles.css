@@ -3,6 +3,7 @@
 :root {
     --icon-size: 24px;
     --primary-color: #bf9f4f;
+    --primary-gradient: radial-gradient(circle at center, rgba(0, 0, 0, 0.1) 0, transparent, rgba(0, 0, 0, 0.1) 50%);
     --peer-width: 120px;
     color-scheme: light dark;
 }
@@ -585,6 +586,17 @@ button::-moz-focus-inner {
     background: var(--primary-color);
     transform: scale(0);
     z-index: -1;
+    overflow: hidden;
+}
+
+#about .x-background:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    background: var(--primary-gradient);
 }
 
 /* Hack such that initial scale(0) isn't animated */
