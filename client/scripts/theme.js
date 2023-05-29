@@ -20,6 +20,9 @@
   // Overwrite css primary color variable
   if (window.snapshareConfig.PRIMARY_COLOR) {
     document.documentElement.style.setProperty('--primary-color', window.snapshareConfig.PRIMARY_COLOR);
+
+    // update theme-color meta tag
+    document.querySelector("meta[name=theme-color]").setAttribute("content", window.snapshareConfig.PRIMARY_COLOR);
   }
 
   // Listen for a click on the button 
