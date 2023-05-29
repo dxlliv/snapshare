@@ -16,9 +16,9 @@ class ServerConnection {
 
         const ws = new WebSocket(this._endpoint() + `?isTerminal=${Number(isTerminal)}`);
         ws.binaryType = 'arraybuffer';
-        ws.onopen = e => console.log('WS: server connected');
+        ws.onopen = _ => console.log('WS: server connected');
         ws.onmessage = e => this._onMessage(e.data);
-        ws.onclose = e => this._onDisconnect();
+        ws.onclose = _ => this._onDisconnect();
         ws.onerror = e => console.error(e);
         this._socket = ws;
     }
@@ -67,13 +67,15 @@ class ServerConnection {
         this.send({ type: 'disconnect' });
         this._socket.onclose = null;
         this._socket.close();
+        Events.fire('disconnect');
     }
 
     _onDisconnect() {
         console.log('WS: server disconnected');
         Events.fire('notify-user', 'Connessione persa, riprovo tra poco');
         clearTimeout(this._reconnectTimer);
-        this._reconnectTimer = setTimeout(_ => this._connect(location.hash.startsWith('#terminal')), 5000);
+        this._reconnectTimer = setTimeout(this._connect, 5000);
+        Events.fire('disconnect');
     }
 
     _onVisibilityChange() {
@@ -255,7 +257,7 @@ class RTCPeer extends Peer {
     }
 
     _openChannel() {
-        const channel = this._conn.createDataChannel('data-channel', { 
+        const channel = this._conn.createDataChannel('data-channel', {
             ordered: true,
             reliable: true // Obsolete. See https://developer.mozilla.org/en-US/docs/Web/API/RTCDataChannel/reliable
         });
@@ -297,7 +299,7 @@ class RTCPeer extends Peer {
         const channel = event.channel || event.target;
         channel.binaryType = 'arraybuffer';
         channel.onmessage = e => this._onMessage(e.data);
-        channel.onclose = e => this._onChannelClosed();
+        channel.onclose = _ => this._onChannelClosed();
         this._channel = channel;
     }
 
@@ -370,6 +372,7 @@ class PeersManager {
         Events.on('files-selected', e => this._onFilesSelected(e.detail));
         Events.on('send-text', e => this._onSendText(e.detail));
         Events.on('peer-left', e => this._onPeerLeft(e.detail));
+        Events.on('disconnect', this._clearPeers);
     }
 
     _onMessage(message) {
@@ -393,6 +396,12 @@ class PeersManager {
         })
     }
 
+    _clearPeers() {
+        if (this.peers) {
+            Object.keys(this.peers).forEach(peerId => this._onPeerLeft(peerId));
+        }
+    }
+
     sendTo(peerId, message) {
         this.peers[peerId].send(message);
     }
@@ -408,8 +417,9 @@ class PeersManager {
     _onPeerLeft(peerId) {
         const peer = this.peers[peerId];
         delete this.peers[peerId];
-        if (!peer || !peer._peer) return;
-        peer._peer.close();
+        if (!peer || !peer._conn) return;
+        if (peer._channel) peer._channel.onclose = null;
+        peer._conn.close();
     }
 
 }
