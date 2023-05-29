@@ -91,7 +91,7 @@ class PeerUI {
                 </div>
                 <div class="name font-subheading"></div>
                 <div class="device-name font-body2"></div>
-                <div class="status font-body2"></div>
+                <div class="device-status font-body2"></div>
             </label>`
     }
 
@@ -109,7 +109,7 @@ class PeerUI {
         el.querySelector('svg use').setAttribute('xlink:href', this._icon());
         el.querySelector('.name').textContent = this._displayName();
         el.querySelector('.device-name').textContent = this._deviceName();
-        el.querySelector('.status').textContent = this._isTerminal() ? 'Attendi che qualcuno invii dei documenti da stampare' : 'Collegati alla nostra rete per condividere le foto';
+        el.querySelector('.device-status').textContent = !this._isTerminal() ? 'Ricezione in corso' : 'Invio in corso';
         this.$el = el;
         this.$progress = el.querySelector('.progress');
     }

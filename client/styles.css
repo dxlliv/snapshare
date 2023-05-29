@@ -264,7 +264,7 @@ x-peer[transfer] x-icon {
     transform: scale(1);
 }
 
-.status,
+.device-status,
 .device-name {
     white-space: nowrap;
     overflow: hidden;
@@ -274,10 +274,10 @@ x-peer[transfer] x-icon {
 }
 
 x-peer[transfer] .status:before {
-    content: 'Trasferimento...';
+    /*content: 'Trasferimento...';*/
 }
 
-x-peer:not([transfer]) .status,
+x-peer:not([transfer]) .device-status,
 x-peer[transfer] .device-name {
     display: none;
 }
@@ -375,6 +375,13 @@ x-dialog a {
 }
 
 #fileName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#fileSize {
+    opacity: 0.7;
     margin-bottom: 16px;
 }
 
